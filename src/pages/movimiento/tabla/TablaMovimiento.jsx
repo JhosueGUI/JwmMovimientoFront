@@ -8,6 +8,7 @@ import UsarGetMovimiento from "../hooks/UsarGetMovimiento";
 import { Button } from "primereact/button";
 import TrazabilidadMovimiento from "../mod/ModalTrazabilidadMovimiento";
 import ModalTrazabilidadMovimiento from "../mod/ModalTrazabilidadMovimiento";
+import ModalCrearMovimiento from "../mod/ModalCrearMovimiento";
 
 export function TablaMovimiento() {
     // Obtener datos
@@ -27,7 +28,6 @@ export function TablaMovimiento() {
         );
         setColumnasVisibles(columnasOrdenadas);
     };
-
     // Filtrar los datos en base a la búsqueda
     const datosFiltrados = data?.filter(item =>
         columnasVisibles.some(col =>
@@ -35,31 +35,6 @@ export function TablaMovimiento() {
         )
     );
 
-    // Encabezado con búsqueda y selección de columnas
-    const encabezado = (
-        <>
-            <MultiSelect
-                style={{ 'width': '100%' }}
-                value={columnasVisibles}
-                options={ColumnasMovimiento}
-                optionLabel="header"
-                onChange={AlternarColumna}
-                display="chip"
-                placeholder="Selecciona columnas"
-                className="w-full sm:w-20rem"
-            />
-            <div className="p-inputgroup" style={{ marginTop: '10px' }}>
-                <span className="p-inputgroup-addon">
-                    <i className="pi pi-search"></i>
-                </span>
-                <InputText
-                    value={filtroGlobal}
-                    onChange={(e) => setFiltroGlobal(e.target.value)}
-                    placeholder="Buscar..."
-                />
-            </div>
-        </>
-    );
     // Abrir Modal Trazabilidad
     const [abrirModalTrazabilidad, setAbrirModalTrazabilidad] = useState(false);
     const [movimientoSeleccionado, setMovimientoSeleccionado] = useState(null);
@@ -71,7 +46,6 @@ export function TablaMovimiento() {
     const cerrarModal = () => {
         setAbrirModalTrazabilidad(false);
     }
-
     // Columnas Adicionales
     const ColumnasAdicionales = (rowData) => {
         return (
@@ -93,13 +67,45 @@ export function TablaMovimiento() {
     return (
         <>
             <div className="card">
+                <div className="encabezado" style={{ width: '100%', color: '#4a7de9', padding: '1rem 1rem' }}>
+                    <h2> Gestión Financiera </h2>
+                    <span >
+                        A continuación, se visualiza la lista de los registro de Movimientos Financieros en el sistema.
+                    </span>
+                </div>
+                <div className="acciones" style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div className="crear" style={{ width: '100%' }}>
+                        <ModalCrearMovimiento />
+                    </div>
+                    <div className="buscar" style={{ display: 'flex', width: '100%',justifyContent: 'flex-end' }}>
+                        <span className="p-inputgroup-addon">
+                            <i className="pi pi-search"></i>
+                        </span>
+                        <InputText
+                            value={filtroGlobal}
+                            onChange={(e) => setFiltroGlobal(e.target.value)}
+                            placeholder="Buscar..."
+                        />
+                    </div>
+                </div>
                 <DataTable
                     value={datosFiltrados}
-                    header={encabezado}
                     paginator
                     rows={10}
                     rowsPerPageOptions={[5, 10, 20]}
                     tableStyle={{ minWidth: '50rem' }}
+                    header={
+                        <MultiSelect
+                            style={{ 'width': '100%' }}
+                            value={columnasVisibles}
+                            options={ColumnasMovimiento}
+                            optionLabel="header"
+                            onChange={AlternarColumna}
+                            display="chip"
+                            placeholder="Selecciona columnas"
+                            className="w-full sm:w-20rem"
+                        />
+                    }
                 >
                     {columnasVisibles.map(col => (
                         <Column key={col.field} field={col.field} header={col.header} sortable />

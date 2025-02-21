@@ -34,3 +34,48 @@ export const getRendicionMovimiento = async () => {
         throw error;
     }
 }
+export const getEmpresaMovimiento = async () => {
+    try {
+        const response = await ApiCliente.get('/empresa/get');
+        return response.data.data;
+    } catch (error) {
+        console.error('Error al obtener Empresa:', error);
+        throw error;
+    }
+}
+export const getModoMovimiento = async () => {
+    try {
+        const response = await ApiCliente.get('/modo/get');
+        return response.data.data;
+    } catch (error) {
+        console.error('Error al obtener Modo:', error);
+        throw error;
+    }
+}
+export const getMonedaMovimiento = async () => {
+    try {
+        const response = await ApiCliente.get('/moneda/get');
+        return response.data.data;
+    } catch (error) {
+        console.error('Error al obtener Moneda:', error);
+        throw error;
+    }
+}
+export const getProveedorMovimiento = async () => {
+    try {
+        const response = await ApiCliente.get('/proveedor/get');
+        return response.data.data;
+    } catch (error) {
+        console.error('Error al obtener Proveedor:', error);
+        throw error;
+    }
+}
+export const getCategoriaMovimiento = async () => {
+    try {
+        const response = await ApiCliente.get('/sub_categoria/get');
+        return response.data.data;
+    } catch (error) {
+        console.error('Error al obtener Categoria:', error);
+        throw error;
+    }
+}
