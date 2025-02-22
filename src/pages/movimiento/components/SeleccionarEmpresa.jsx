@@ -3,7 +3,7 @@ import { Dropdown } from "primereact/dropdown";
 import { useEffect, useState } from "react";
 import UsarGetEmpresa from "../hooks/UsarGetEmpresa";
 
-export const SeleccionarEmpresa = ({ pasarMovimientoSeleccionado }) => {
+export const SeleccionarEmpresa = ({ pasarMovimientoSeleccionado,pasarSetEmpresa }) => {
     // Hook personalizado para obtener estados
     const { data } = UsarGetEmpresa();
     // Estado para la selección del Dropdown
@@ -15,7 +15,11 @@ export const SeleccionarEmpresa = ({ pasarMovimientoSeleccionado }) => {
     //         setEstadoSeleccionado(estadoEncontrado || null);
     //     }
     // }, [pasarMovimientoSeleccionado, data]);
-
+    const ManejoDeEmpresa=(e)=>{
+        const seleccion=e.value;
+        setEmpresaSeleccionado(seleccion);
+        pasarSetEmpresa(seleccion);
+    }
     return (
         <>
             <div  style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
@@ -23,7 +27,7 @@ export const SeleccionarEmpresa = ({ pasarMovimientoSeleccionado }) => {
                 <Dropdown
                     id="estado_id"
                     value={empresaSeleccionado}
-                    onChange={(e) => setEmpresaSeleccionado(e.value)}
+                    onChange={ManejoDeEmpresa}
                     options={data}
                     optionLabel="nombre_empresa"
                     showClear

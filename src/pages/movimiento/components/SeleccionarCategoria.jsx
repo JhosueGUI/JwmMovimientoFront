@@ -3,12 +3,11 @@ import { Dropdown } from "primereact/dropdown";
 import { useEffect, useState } from "react";
 import UsarGetCategoria from "../hooks/UsarGetCategoria";
 
-export const SeleccionarCategoria = () => {
+export const SeleccionarCategoria = ({pasarSetSubCategoria}) => {
     const { data } = UsarGetCategoria();
    
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
     const [subcategoriaSeleccionada, setSubcategoriaSeleccionada] = useState(null);
-   
     const [subcategorias, setSubcategorias] = useState([]);
 
     useEffect(() => {
@@ -21,6 +20,12 @@ export const SeleccionarCategoria = () => {
             setSubcategorias([]);
         }
     }, [categoriaSeleccionada, data]);
+
+    const ManejoDeCategoria=(e)=>{
+        const seleccion=e.value;
+        setSubcategoriaSeleccionada(seleccion);
+        pasarSetSubCategoria(seleccion);
+    }
 
     return (
         <div  style={{ display: "flex", gap: "20px" }}>

@@ -79,3 +79,21 @@ export const getCategoriaMovimiento = async () => {
         throw error;
     }
 }
+export const crearMovimiento = async (data) => {
+    try {
+        const response = await ApiCliente.post('/movimiento/create',data)
+        return response.data.resp;
+    } catch (error) {
+        console.error('Error al crear movimiento:', error);
+        throw error;
+    }
+}
+export const crearTrazabilidad = async (data,id) => {
+    try{
+        const response = await ApiCliente.post(`/movimiento/trazabilidad/${id}`,data)
+        return response.data.resp;
+    }catch (error) {
+        console.error('Error al crear trazabilidad:', error);
+        throw error;
+    }
+}

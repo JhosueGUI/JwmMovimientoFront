@@ -3,7 +3,7 @@ import { Dropdown } from "primereact/dropdown";
 import { useEffect, useState } from "react";
 import UsarGetMoneda from "../hooks/UsarGetMoneda";
 
-export const SeleccionarMoneda = ({ pasarMovimientoSeleccionado }) => {
+export const SeleccionarMoneda = ({ pasarMovimientoSeleccionado, pasarSetMoneda }) => {
     // Hook personalizado para obtener estados
     const { data } = UsarGetMoneda();
     // Estado para la selección del Dropdown
@@ -15,15 +15,19 @@ export const SeleccionarMoneda = ({ pasarMovimientoSeleccionado }) => {
     //         setEstadoSeleccionado(estadoEncontrado || null);
     //     }
     // }, [pasarMovimientoSeleccionado, data]);
-
+    const ManejoDeMoneda = (e) => {
+        const seleccion = e.value;
+        setMonedaSeleccionado(seleccion);
+        pasarSetMoneda(seleccion);
+    }
     return (
         <>
-            <div  style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                <label htmlFor="ssn" style={{color:'#344054'}}>Moneda</label>
+            <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                <label htmlFor="ssn" style={{ color: '#344054' }}>Moneda</label>
                 <Dropdown
                     id="moneda_id"
                     value={monedaSeleccionado}
-                    onChange={(e) => setMonedaSeleccionado(e.value)}
+                    onChange={ManejoDeMoneda}
                     options={data}
                     optionLabel="nombre_moneda"
                     showClear

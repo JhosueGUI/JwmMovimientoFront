@@ -3,7 +3,7 @@ import { Dropdown } from "primereact/dropdown";
 import { useEffect, useState } from "react";
 import UsarGetProveedor from "../hooks/UsarGetProveedor";
 
-export const SeleccionarProveedor = ({ pasarMovimientoSeleccionado }) => {
+export const SeleccionarProveedor = ({ pasarMovimientoSeleccionado,pasarSetProveedor }) => {
     // Hook personalizado para obtener estados
     const { data } = UsarGetProveedor();
     // Estado para la selección del Dropdown
@@ -15,7 +15,11 @@ export const SeleccionarProveedor = ({ pasarMovimientoSeleccionado }) => {
     //         setEstadoSeleccionado(estadoEncontrado || null);
     //     }
     // }, [pasarMovimientoSeleccionado, data]);
-
+    const ManejoDeProveedor=(e)=>{
+        const seleccion=e.value;
+        setProveedorSeleccionado(seleccion);
+        pasarSetProveedor(seleccion);
+    }
     return (
         <>
             <div  style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
@@ -23,7 +27,7 @@ export const SeleccionarProveedor = ({ pasarMovimientoSeleccionado }) => {
                 <Dropdown
                     id="proveedor_id"
                     value={proveedorSeleccionado}
-                    onChange={(e) => setProveedorSeleccionado(e.value)}
+                    onChange={ManejoDeProveedor}
                     options={data}
                     optionLabel="nombre_proveedor"
                     showClear

@@ -6,14 +6,18 @@ import { useRef } from "react";
 import { Toast } from "primereact/toast";
 import { TabMenu } from "primereact/tabmenu";
 import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
 import { SeleccionarEmpresa } from "../components/SeleccionarEmpresa";
 import { SeleccionarModo } from "../components/SeleccionarModo";
 import { SeleccionarMoneda } from "../components/SeleccionarMoneda";
 import { SeleccionarProveedor } from "../components/SeleccionarProveedor";
-import { SeleccionarCategoria } from "../components/SeleccionarCategoria";
 import { Calendar } from "primereact/calendar";
+import { DataMovimiento } from "../data/DataMovimiento";
+import UsarCrearMovimiento from "../hooks/UsarCrearMovimiento";
+import { getMovimientos } from "../service/ApiMovimiento";
 
-const ModalCrearMovimiento = () => {
+const ModalCrearMovimiento = ({ pasarSetData }) => {
+
     //modal
     const [abrirModal, setAbrirModal] = useState(false);
     const AbrirModal = () => {
@@ -30,22 +34,93 @@ const ModalCrearMovimiento = () => {
             label: 'Ingreso',
             icon: 'pi pi-home',
             command: () => {
-                toast.current.show({ severity: 'success', summary: 'Selected', detail: 'Dashboard', life: 3000 });
+                toast.current.show({ severity: 'success', summary: 'Selected', detail: 'Ingreso Seleccionado', life: 3000 });
             }
         },
         {
             label: 'Egreso',
             icon: 'pi pi-chart-line',
             command: () => {
-                toast.current.show({ severity: 'success', summary: 'Selected', detail: 'Transactions', life: 3000 });
+                toast.current.show({ severity: 'success', summary: 'Selected', detail: 'Egreso Seleccionado', life: 3000 });
             }
         },
     ]
+    //#region para crear 
+    const [movimiento, setMovimiento] = useState(DataMovimiento)
+    //hooks
+    const { CrearMovimiento } = UsarCrearMovimiento(movimiento, toast)
+
+    // Manejar cambios en los campos del formulario
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setMovimiento({
+            ...movimiento,
+            [name]: value.toUpperCase()
+        });
+    };
+
+    const agregar = async () => {
+        await CrearMovimiento();
+        const respuestaGet = await getMovimientos();
+        const adaptarRespuesta = respuestaGet.map(movimiento => ({
+            id: movimiento.id,
+            fecha: movimiento.fecha,
+            modo: movimiento.modo?.nombre_modo,
+            n_operacion: movimiento.n_operacion,
+            proveedor: movimiento.proveedor?.nombre_proveedor,
+            ingreso: movimiento.ingreso,
+            egreso: movimiento.egreso,
+            descripcion: movimiento.descripcion,
+            solicitante: movimiento.solicitante,
+            sub_destino_placa: movimiento.sub_destino_placa,
+            categoria: movimiento.sub_categoria?.categoria?.nombre_categoria,
+            sub_categoria: movimiento.sub_categoria?.nombre_sub_categoria,
+            estado_id: movimiento.estado?.id,
+            estado: movimiento.estado?.nombre_estado_comprobante,
+            rendicion_id: movimiento.rendicion?.id,
+            rendicion: movimiento.rendicion?.nombre_rendicion,
+            serie: movimiento.serie,
+            n_factura: movimiento.n_factura,
+            fecha_factura: movimiento.fecha_factura,
+            obs: movimiento.obs,
+            n_retencion: movimiento.n_retencion,
+            fecha_retencion: movimiento.fecha_retencion,
+        }));
+        pasarSetData(adaptarRespuesta);
+
+        CerrarModal();
+    }
+
+    //funciones para eventoss
+    const handleProveedorChange = (e) => {
+        setMovimiento({
+            ...movimiento,
+            proveedor_id: e.id
+        });
+    };
+    const handleMonedaChange = (e) => {
+        setMovimiento({
+            ...movimiento,
+            moneda_id: e.id
+        });
+    };
+    const handleEmpresaChange = (e) => {
+        setMovimiento({
+            ...movimiento,
+            empresa_id: e.id
+        })
+    }
+    const handleModoChange = (e) => {
+        setMovimiento({
+            ...movimiento,
+            modo_id: e.id
+        })
+    }
 
     const footer = (
         <div className="botonesFooter" style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
             <Button label="Cancelar" icon="pi pi-times" className="p-button-text" onClick={CerrarModal} />
-            <Button label="Confirmar" icon="pi pi-check" className="p-button-primary" onClick={() => console.log("Confirmado")} />
+            <Button label="Confirmar" icon="pi pi-check" className="p-button-primary" onClick={agregar} />
         </div>
     );
 
@@ -77,65 +152,50 @@ const ModalCrearMovimiento = () => {
                     <div style={{ marginTop: "20px", width: "100%", display: 'flex', flexDirection: 'column', gap: '15px' }}>
                         <div className="1" style={{ display: "flex", gap: "20px" }}>
                             <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
-                                <label htmlFor="serie" style={{ color: '#344054' }}>Fecha</label>
-                                <Calendar />
+                                <label htmlFor="fecha" style={{ color: '#344054' }}>Fecha</label>
+                                <Calendar value={movimiento.fecha} name="fecha" onChange={(e) => setMovimiento({ ...movimiento, fecha: e.value })} mask="99/99/9999" />
                             </div>
                             {activeIndex === 1 && (
                                 <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
-                                    <SeleccionarModo />
+                                    <SeleccionarModo pasarSetModo={handleModoChange} />
                                 </div>
                             )}
                         </div>
                         <div className="2" style={{ display: "flex", gap: "20px" }}>
                             <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
-                                <label htmlFor="serie" style={{ color: '#344054' }}>Número de Operación</label>
-                                <InputText id="serie" name='serie' type="text" className="w-full" />
+                                <label htmlFor="n_operacion" style={{ color: '#344054' }}>Número de Operación</label>
+                                <InputText id="n_operacion" name='n_operacion' value={movimiento.n_operacion} onChange={handleInputChange} type="text" className="w-full" />
                             </div>
                             <div style={{ width: "100%" }}>
-                                <SeleccionarProveedor />
+                                <SeleccionarProveedor pasarSetProveedor={handleProveedorChange} />
 
                             </div>
                         </div>
                         <div className="3" style={{ display: "flex", gap: "20px" }}>
                             <div style={{ width: "100%" }}>
-                                <SeleccionarMoneda />
+                                <SeleccionarMoneda pasarSetMoneda={handleMonedaChange} />
                             </div>
                             {activeIndex === 0 && (
                                 <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
-                                    <label htmlFor="serie" style={{ color: '#344054' }}>Ingreso</label>
-                                    <InputText id="serie" name='serie' type="text" className="w-full" />
+                                    <label htmlFor="ingreso" style={{ color: '#344054' }}>Ingreso</label>
+                                    <InputNumber value={movimiento.ingreso || ''} onChange={(e) => setMovimiento({ ...movimiento, ingreso: e.value })} id="ingreso" name='ingreso' className="w-full" min={0} />
                                 </div>
                             )}
                             {activeIndex === 1 && (
                                 <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
-                                    <label htmlFor="serie" style={{ color: '#344054' }}>Egreso</label>
-                                    <InputText id="serie" name='serie' type="text" className="w-full" />
+                                    <label htmlFor="egreso" style={{ color: '#344054' }}>Egreso</label>
+                                    <InputNumber value={movimiento.egreso} onChange={(e) => setMovimiento({ ...movimiento, egreso: e.value })} id="egreso" name='egreso' className="w-full" min={0} />
                                 </div>
                             )}
                         </div>
                         <div className="4" style={{ width: "100%" }}>
-                            <SeleccionarEmpresa />
+                            <SeleccionarEmpresa pasarSetEmpresa={handleEmpresaChange} />
                         </div>
                         <div className="5" style={{ display: "flex", gap: "20px" }}>
                             <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
-                                <label htmlFor="serie" style={{ color: '#344054' }}>Descripcion</label>
-                                <InputText id="serie" name='serie' type="text" className="w-full" />
+                                <label htmlFor="descripcion" style={{ color: '#344054' }}>Descripcion</label>
+                                <InputText value={movimiento.descripcion} onChange={handleInputChange} id="descripcion" name='descripcion' type="text" className="w-full" />
                             </div>
-                            {activeIndex === 1 && (
-                                <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
-                                    <label htmlFor="serie" style={{ color: '#344054' }}>Solicitante</label>
-                                    <InputText id="serie" name='serie' type="text" className="w-full" />
-                                </div>
-                            )}
-                            {activeIndex === 1 && (
-                                <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
-                                    <label htmlFor="serie" style={{ color: '#344054' }}>Sub destino placa</label>
-                                    <InputText id="serie" name='serie' type="text" className="w-full" />
-                                </div>
-                            )}
-                        </div>
-                        <div className="6" >
-                            <SeleccionarCategoria />
                         </div>
                     </div>
                 </div>

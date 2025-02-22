@@ -33,7 +33,6 @@ const UsarGetMovimiento = () => {
                     obs: movimiento.obs,
                     n_retencion: movimiento.n_retencion,
                     fecha_retencion: movimiento.fecha_retencion,
-                    
                 }));
                 setData(adaptarRespuesta);
             } catch (error) {
@@ -42,6 +41,6 @@ const UsarGetMovimiento = () => {
         }
         FetchMovimiento();
     }, []);
-    return { data };
+    return { data, setData };
 }
 export default UsarGetMovimiento;

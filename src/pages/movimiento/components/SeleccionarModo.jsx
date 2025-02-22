@@ -3,7 +3,7 @@ import { Dropdown } from "primereact/dropdown";
 import { useEffect, useState } from "react";
 import UsarGetModo from "../hooks/UsarGetModo";
 
-export const SeleccionarModo = ({ pasarMovimientoSeleccionado }) => {
+export const SeleccionarModo = ({ pasarMovimientoSeleccionado,pasarSetModo }) => {
     // Hook personalizado para obtener estados
     const { data } = UsarGetModo();
     // Estado para la selección del Dropdown
@@ -15,7 +15,11 @@ export const SeleccionarModo = ({ pasarMovimientoSeleccionado }) => {
     //         setEstadoSeleccionado(estadoEncontrado || null);
     //     }
     // }, [pasarMovimientoSeleccionado, data]);
-
+    const ManejoDeModo=(e)=>{
+        const seleccion=e.value;
+        setModoSeleccionado(seleccion);
+        pasarSetModo(seleccion);
+    }
     return (
         <>
             <div  style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
@@ -23,7 +27,7 @@ export const SeleccionarModo = ({ pasarMovimientoSeleccionado }) => {
                 <Dropdown
                     id="modo_id"
                     value={modoSeleccionado}
-                    onChange={(e) => setModoSeleccionado(e.value)}
+                    onChange={ManejoDeModo}
                     options={data}
                     optionLabel="nombre_modo"
                     showClear

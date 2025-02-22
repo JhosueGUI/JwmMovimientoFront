@@ -12,8 +12,7 @@ import ModalCrearMovimiento from "../mod/ModalCrearMovimiento";
 
 export function TablaMovimiento() {
     // Obtener datos
-    const { data } = UsarGetMovimiento();
-    console.log(data);
+    const { data, setData } = UsarGetMovimiento();
     // Estado para las columnas visibles
     const [columnasVisibles, setColumnasVisibles] = useState(ColumnasMovimiento);
 
@@ -66,18 +65,18 @@ export function TablaMovimiento() {
 
     return (
         <>
-            <div className="card">
+            <div className="card" >
                 <div className="encabezado" style={{ width: '100%', color: '#4a7de9', padding: '1rem 1rem' }}>
                     <h2> Gestión Financiera </h2>
                     <span >
                         A continuación, se visualiza la lista de los registro de Movimientos Financieros en el sistema.
                     </span>
                 </div>
-                <div className="acciones" style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className="acciones" style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1rem' }}>
                     <div className="crear" style={{ width: '100%' }}>
-                        <ModalCrearMovimiento />
+                        <ModalCrearMovimiento pasarSetData={setData} />
                     </div>
-                    <div className="buscar" style={{ display: 'flex', width: '100%',justifyContent: 'flex-end' }}>
+                    <div className="buscar" style={{ display: 'flex', width: '100%', justifyContent: 'flex-end', }}>
                         <span className="p-inputgroup-addon">
                             <i className="pi pi-search"></i>
                         </span>
@@ -88,34 +87,34 @@ export function TablaMovimiento() {
                         />
                     </div>
                 </div>
-                <DataTable
-                    value={datosFiltrados}
-                    paginator
-                    rows={10}
-                    rowsPerPageOptions={[5, 10, 20]}
-                    tableStyle={{ minWidth: '50rem' }}
-                    header={
-                        <MultiSelect
-                            style={{ 'width': '100%' }}
-                            value={columnasVisibles}
-                            options={ColumnasMovimiento}
-                            optionLabel="header"
-                            onChange={AlternarColumna}
-                            display="chip"
-                            placeholder="Selecciona columnas"
-                            className="w-full sm:w-20rem"
+                    <DataTable
+                        value={datosFiltrados}
+                        paginator
+                        rows={10}
+                        rowsPerPageOptions={[5, 10, 20]}
+                        header={
+                            <MultiSelect
+                                style={{ width: '100%' }}
+                                value={columnasVisibles}
+                                options={ColumnasMovimiento}
+                                optionLabel="header"
+                                onChange={AlternarColumna}
+                                display="chip"
+                                placeholder="Selecciona columnas"
+                            />
+                        }
+                    >
+                        {columnasVisibles.map(col => (
+                            <Column key={col.field} field={col.field} header={col.header} sortable  />
+                        ))}
+                        <Column
+                            header="Trazabilidad"
+                            
+                            body={ColumnasAdicionales}
+                            style={{ textAlign: 'center', width: '5rem', position: 'sticky', right: 0, background: 'white' }}
                         />
-                    }
-                >
-                    {columnasVisibles.map(col => (
-                        <Column key={col.field} field={col.field} header={col.header} sortable />
-                    ))}
-                    <Column
-                        header="Trazabilidad"
-                        body={ColumnasAdicionales}
-                        style={{ textAlign: 'center', width: '5rem', position: 'sticky', right: 0, background: 'white' }}
-                    />
-                </DataTable>
+                    </DataTable>
+
             </div>
             <ModalTrazabilidadMovimiento pasarAbrirModal={abrirModalTrazabilidad} pasarCerrarModal={cerrarModal} pasarMovimientoSeleccionado={movimientoSeleccionado} />
         </>
