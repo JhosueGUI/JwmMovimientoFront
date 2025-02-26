@@ -5,10 +5,11 @@ import { InputText } from "primereact/inputtext";
 import { DataPersonaFinanza } from "../data/DataPersonaFinanza";
 import { InputMask } from "primereact/inputmask";
 import UsarGetDatosPersonaApi from "../hooks/UsarGetDatosPersonaApi";
+import UsarCrearPersonal from "../hooks/UsarCrearPersonal";
 export const ModalCrearPersonalFinanza = () => {
     //hooks 
     const { FetchDatosPersona } = UsarGetDatosPersonaApi();
-
+    const { CrearPersonal } = UsarCrearPersonal();
 
     const [modal, setModal] = useState(false);
     const [dataPersona, setDataPersona] = useState(DataPersonaFinanza);
@@ -30,12 +31,19 @@ export const ModalCrearPersonalFinanza = () => {
             });
         }
     };
+    const Crear= async()=>{
+        const respuesta = await CrearPersonal(dataPersona);
+        if(respuesta){
+            console.log(respuesta);
+        }
+        cerrarModal();
+    }
 
 
     const footer = (
         <div className="botonesFooter" style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
             <Button label="Cancelar" icon="pi pi-times" className="p-button-text" onClick={cerrarModal} />
-            <Button label="Confirmar" icon="pi pi-check" className="p-button-primary" onClick={cerrarModal} />
+            <Button label="Confirmar" icon="pi pi-check" className="p-button-primary" onClick={Crear} />
         </div>
     );
 
