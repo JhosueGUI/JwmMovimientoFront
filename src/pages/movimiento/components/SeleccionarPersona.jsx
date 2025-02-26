@@ -2,8 +2,10 @@ import { FloatLabel } from "primereact/floatlabel";
 import { Dropdown } from "primereact/dropdown";
 import { useEffect, useState } from "react";
 import UsarGetPersonaFinanza from "../hooks/UsarGetPersonaFinanza";
+import { Button } from "primereact/button";
+import { ModalCrearPersonalFinanza } from "../mod/ModalCrearPersonalFinanza";
 
-export const SeleccionarPersona = ({ pasarMovimientoSeleccionado,pasarSetPersonal }) => {
+export const SeleccionarPersona = ({ pasarMovimientoSeleccionado, pasarSetPersonal }) => {
     // Hook personalizado para obtener estados
     const { data } = UsarGetPersonaFinanza();
     // Estado para la selección del Dropdown
@@ -15,25 +17,29 @@ export const SeleccionarPersona = ({ pasarMovimientoSeleccionado,pasarSetPersona
     //         setEstadoSeleccionado(estadoEncontrado || null);
     //     }
     // }, [pasarMovimientoSeleccionado, data]);
-    const ManejoDePersona=(e)=>{
-        const seleccion=e.value;
+    const ManejoDePersona = (e) => {
+        const seleccion = e.value;
         setPersonalSeleccionado(seleccion);
         pasarSetPersonal(seleccion);
     }
     return (
         <>
-            <div  style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                <label htmlFor="ssn" style={{color:'#344054'}}>Persona</label>
-                <Dropdown
-                    id="persona_finanza_id"
-                    value={personalSeleccionado}
-                    onChange={ManejoDePersona}
-                    options={data}
-                    optionLabel="nombre_persona"
-                    showClear
-                    placeholder="Seleccione una Persona"
-                    style={{ width: "100%" }}
-                />
+            <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                <label htmlFor="ssn" style={{ color: '#344054' }}>Persona</label>
+                <div style={{ display: 'flex', gap: '5px' }}>
+                    <Dropdown
+                        id="persona_finanza_id"
+                        value={personalSeleccionado}
+                        onChange={ManejoDePersona}
+                        options={data}
+                        optionLabel="nombre_persona"
+                        showClear
+                        placeholder="Seleccione una Persona"
+                        style={{ width: "100%" }}
+                    />
+                    <ModalCrearPersonalFinanza/>
+                </div>
+
             </div>
         </>
 

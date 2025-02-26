@@ -115,3 +115,13 @@ export const getProveedorFinanza = async () => {
         throw error;
     }
 }
+export const getDatosPersonaApi = async (dni) => {
+    try {
+        const response = await ApiCliente.get(`/persona_finanza/get/${dni}`)
+        return response.data.resp;
+    } catch (error) {
+        console.error('Error al obtener datos persona:', error);
+        throw error;
+    }
+}
+

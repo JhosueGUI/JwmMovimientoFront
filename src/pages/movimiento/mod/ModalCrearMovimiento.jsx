@@ -174,12 +174,13 @@ const ModalCrearMovimiento = ({ pasarSetData }) => {
                                     <SeleccionarModo pasarSetModo={handleModoChange} />
                                 </div>
                             )}
-                        </div>
-                        <div className="2" style={{ display: "flex", gap: "20px" }}>
                             <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
                                 <label htmlFor="n_operacion" style={{ color: '#344054' }}>Número de Operación</label>
                                 <InputText id="n_operacion" name='n_operacion' value={movimiento.n_operacion} onChange={handleInputChange} type="text" className="w-full" />
                             </div>
+                        </div>
+                        <div className="2" style={{ display: "flex", gap: "20px" }}>
+
                             {activeIndex === 0 && (
                                 <div style={{ width: "100%" }}>
                                     <SeleccionarCliente pasarSetCliente={handleClienteChange} />
