@@ -11,22 +11,22 @@ export const DataMovimiento={
     egreso: '',
     empresa_id: '',
     descripcion: '',
+    sustento_id: '',
+
+    //
     solicitante: '',
     sub_destino_placa: '',
+    sub_categoria_id: '',
+    estado_id: '',
+    estado_nombre:'',
+    rendicion_id: '',
+    rendicion:'',
     serie: '',
     n_factura: '',
     fecha_factura: '',
     obs: '',
     n_retencion: '',
     fecha_retencion: '',
-    sub_categoria_id: '',
-    estado_id: '',
-    rendicion_id: '',
-    sustento_id: '',
 
-    estado_nombre:'',
-    rendicion:'',
 
-    // egreso
-    
 }

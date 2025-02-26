@@ -14,25 +14,32 @@ const ModalTrazabilidadMovimiento = ({ pasarAbrirModal, pasarCerrarModal, pasarM
 
     useEffect(() => {
         if (pasarMovimientoSeleccionado) {
+            ///no me trae por que no lo tengo en mi tabla
             setDataMovimiento({
                 solicitante: pasarMovimientoSeleccionado.solicitante,
                 sub_destino_placa: pasarMovimientoSeleccionado.sub_destino_placa,
-                obs: pasarMovimientoSeleccionado.obs,
+                sub_categoria_id: pasarMovimientoSeleccionado.sub_categoria_id,
+                estado_id: pasarMovimientoSeleccionado.estado_id,
+                rendicion_id: pasarMovimientoSeleccionado.rendicion_id,
                 serie: pasarMovimientoSeleccionado.serie,
                 n_factura: pasarMovimientoSeleccionado.n_factura,
                 fecha_factura: pasarMovimientoSeleccionado.fecha_factura,
+                obs: pasarMovimientoSeleccionado.obs,
                 n_retencion: pasarMovimientoSeleccionado.n_retencion,
                 fecha_retencion: pasarMovimientoSeleccionado.fecha_retencion,
-                estado_id: pasarMovimientoSeleccionado.estado_id,
                 estado_nombre: pasarMovimientoSeleccionado.estado,
             });
         }
     }, [pasarMovimientoSeleccionado])
 
+    const crear = async () => {
+        console.log('dataMovimiento:', dataMovimiento);
+    }
+
     const footer = (
         <div className="botonesFooter" style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
             <Button label="Cancelar" icon="pi pi-times" className="p-button-text" onClick={pasarCerrarModal} />
-            <Button label="Confirmar" icon="pi pi-check" className="p-button-primary" onClick={() => console.log("Confirmado")} />
+            <Button label="Confirmar" icon="pi pi-check" className="p-button-primary" onClick={crear} />
         </div>
     );
 
