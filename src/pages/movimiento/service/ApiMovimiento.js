@@ -124,4 +124,23 @@ export const getDatosPersonaApi = async (dni) => {
         throw error;
     }
 }
+export const getDatosProveedorApi = async (ruc) => {
+    try {
+        const response = await ApiCliente.get(`/proveedor_finanza/get/${ruc}`)
+        return response.data.resp;
+    } catch (error) {
+        console.error('Error al obtener datos del proveedor:', error);
+        throw error;
+    }
+}
+export const crearPersonalFinanza=async(data)=>{
+    try{
+        const response = await ApiCliente.post("/persona_finanza/create",data)
+        return response.data.resp;
+    }catch(error){
+        console.error('Error al crear Personal:',error);
+        throw error;
+    }
+}
+
 
