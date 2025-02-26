@@ -6,7 +6,7 @@ import { ModalCrearProveedorFinanza } from "../mod/ModalCrearProveedorFinanza";
 
 export const SeleccionarProveedor = ({ pasarMovimientoSeleccionado, pasarSetProveedor }) => {
     // Hook personalizado para obtener estados
-    const { data } = UsarGetProveedorFinanza();
+    const { data, setData } = UsarGetProveedorFinanza();
     // Estado para la selección del Dropdown
     const [proveedorSeleccionado, setProveedorSeleccionado] = useState(null);
     //si pasarMovimientoSeleccionado es true, se setea el estado
@@ -36,7 +36,7 @@ export const SeleccionarProveedor = ({ pasarMovimientoSeleccionado, pasarSetProv
                         placeholder="Seleccione un Proveedor"
                         style={{ width: "100%" }}
                     />
-                    <ModalCrearProveedorFinanza />
+                    <ModalCrearProveedorFinanza pasarSetData={setData}/>
                 </div>
             </div>
         </>

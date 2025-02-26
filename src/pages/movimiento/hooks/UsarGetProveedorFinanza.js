@@ -14,6 +14,6 @@ const UsarGetProveedorFinanza = () => {
         }
         FetchProveedorFinanza();
     }, [])
-    return { data };
+    return { data, setData };
 }
 export default UsarGetProveedorFinanza;

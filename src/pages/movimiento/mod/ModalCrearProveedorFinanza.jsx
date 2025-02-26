@@ -7,8 +7,9 @@ import UsarGetDatosProveedorApi from "../hooks/UsarGetDatosProveedorApi";
 import { DataProveedor } from "../data/DataProveedor";
 import { InputNumber } from "primereact/inputnumber";
 import UsarCrearProveedor from "../hooks/UsarCrearProveedor";
+import { getProveedorFinanza } from "../service/ApiMovimiento";
 
-export const ModalCrearProveedorFinanza = () => {
+export const ModalCrearProveedorFinanza = ({pasarSetData}) => {
     //hooks 
     const { fetchDatosProveedor } = UsarGetDatosProveedorApi();
     const { crearProveedor } = UsarCrearProveedor();
@@ -35,6 +36,8 @@ export const ModalCrearProveedorFinanza = () => {
     };
     const crear = async () => {
         const respuesta =await crearProveedor(proveedor);
+        const respuestaGet = await getProveedorFinanza();
+        pasarSetData(respuestaGet);
         if(respuesta){
             console.log(respuesta);
         }
