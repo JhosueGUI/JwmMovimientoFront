@@ -14,6 +14,6 @@ const UsarGetPersonaFinanza = () => {
         }
         FetchPersonaFinanza()
     }, [])
-    return { data };
+    return { data, setData };
 }
 export default UsarGetPersonaFinanza

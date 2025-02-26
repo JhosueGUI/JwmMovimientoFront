@@ -6,7 +6,8 @@ import { DataPersonaFinanza } from "../data/DataPersonaFinanza";
 import { InputMask } from "primereact/inputmask";
 import UsarGetDatosPersonaApi from "../hooks/UsarGetDatosPersonaApi";
 import UsarCrearPersonal from "../hooks/UsarCrearPersonal";
-export const ModalCrearPersonalFinanza = () => {
+import { getPersonaFinanza } from "../service/ApiMovimiento";
+export const ModalCrearPersonalFinanza = ({pasarSetData}) => {
     //hooks 
     const { FetchDatosPersona } = UsarGetDatosPersonaApi();
     const { CrearPersonal } = UsarCrearPersonal();
@@ -33,6 +34,8 @@ export const ModalCrearPersonalFinanza = () => {
     };
     const Crear= async()=>{
         const respuesta = await CrearPersonal(dataPersona);
+        const respuestaGet = await getPersonaFinanza();
+        pasarSetData(respuestaGet);
         if(respuesta){
             console.log(respuesta);
         }

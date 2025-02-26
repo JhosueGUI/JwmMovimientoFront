@@ -7,7 +7,7 @@ import { ModalCrearPersonalFinanza } from "../mod/ModalCrearPersonalFinanza";
 
 export const SeleccionarPersona = ({ pasarMovimientoSeleccionado, pasarSetPersonal }) => {
     // Hook personalizado para obtener estados
-    const { data } = UsarGetPersonaFinanza();
+    const { data, setData } = UsarGetPersonaFinanza();
     // Estado para la selección del Dropdown
     const [personalSeleccionado, setPersonalSeleccionado] = useState(null);
     //si pasarMovimientoSeleccionado es true, se setea el estado
@@ -37,7 +37,7 @@ export const SeleccionarPersona = ({ pasarMovimientoSeleccionado, pasarSetPerson
                         placeholder="Seleccione una Persona"
                         style={{ width: "100%" }}
                     />
-                    <ModalCrearPersonalFinanza/>
+                    <ModalCrearPersonalFinanza pasarSetData={setData} />
                 </div>
 
             </div>
