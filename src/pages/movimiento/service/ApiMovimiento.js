@@ -133,14 +133,22 @@ export const getDatosProveedorApi = async (ruc) => {
         throw error;
     }
 }
-export const crearPersonalFinanza=async(data)=>{
-    try{
-        const response = await ApiCliente.post("/persona_finanza/create",data)
+export const crearPersonalFinanza = async (data) => {
+    try {
+        const response = await ApiCliente.post("/persona_finanza/create", data)
         return response.data.resp;
-    }catch(error){
-        console.error('Error al crear Personal:',error);
+    } catch (error) {
+        console.error('Error al crear Personal:', error);
         throw error;
     }
 }
-
+export const crearProveedorFinanza = async (data) => {
+    try {
+        const response = await ApiCliente.post("/proveedor_finanza/create", data)
+        return response.data.resp;
+    } catch (error) {
+        console.error('Error al crear Proveedor:', error);
+        throw error;
+    }
+}
 

@@ -6,10 +6,12 @@ import { InputMask } from "primereact/inputmask";
 import UsarGetDatosProveedorApi from "../hooks/UsarGetDatosProveedorApi";
 import { DataProveedor } from "../data/DataProveedor";
 import { InputNumber } from "primereact/inputnumber";
+import UsarCrearProveedor from "../hooks/UsarCrearProveedor";
 
 export const ModalCrearProveedorFinanza = () => {
     //hooks 
     const { fetchDatosProveedor } = UsarGetDatosProveedorApi();
+    const { crearProveedor } = UsarCrearProveedor();
 
     const [modal, setModal] = useState(false);
     const [proveedor, setProveedor] = useState(DataProveedor);
@@ -31,12 +33,19 @@ export const ModalCrearProveedorFinanza = () => {
             });
         }
     };
+    const crear = async () => {
+        const respuesta =await crearProveedor(proveedor);
+        if(respuesta){
+            console.log(respuesta);
+        }
+        cerrarModal();
+    }
 
 
     const footer = (
         <div className="botonesFooter" style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
             <Button label="Cancelar" icon="pi pi-times" className="p-button-text" onClick={cerrarModal} />
-            <Button label="Confirmar" icon="pi pi-check" className="p-button-primary" onClick={cerrarModal} />
+            <Button label="Confirmar" icon="pi pi-check" className="p-button-primary" onClick={crear} />
         </div>
     );
 
