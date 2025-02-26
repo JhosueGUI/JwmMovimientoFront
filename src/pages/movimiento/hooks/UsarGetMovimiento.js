@@ -15,7 +15,7 @@ const UsarGetMovimiento = () => {
                     fecha: movimiento.fecha,
                     modo: movimiento.modo?.nombre_modo,
                     n_operacion: movimiento.n_operacion,
-                    proveedor: movimiento.proveedor?.nombre_proveedor,
+                    cliente: movimiento.cliente?.nombre_cliente,
                     ingreso: movimiento.ingreso,
                     egreso: movimiento.egreso,
                     descripcion: movimiento.descripcion,

@@ -2,7 +2,7 @@ export const ColumnasMovimiento = [
     {field:'fecha', header:'Fecha'},
     {field:'modo', header:'Modo'},
     {field:'n_operacion', header:'N° Operación'},
-    {field:'proveedor', header:'Proveedor'},
+    {field:'cliente', header:'Cliente'},
     {field:'ingreso', header:'Ingreso'},
     {field:'egreso', header:'Egreso'},
     {field:'descripcion', header:'Descripción'},

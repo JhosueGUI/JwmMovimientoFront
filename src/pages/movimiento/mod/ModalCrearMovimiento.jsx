@@ -10,7 +10,7 @@ import { InputNumber } from "primereact/inputnumber";
 import { SeleccionarEmpresa } from "../components/SeleccionarEmpresa";
 import { SeleccionarModo } from "../components/SeleccionarModo";
 import { SeleccionarMoneda } from "../components/SeleccionarMoneda";
-import { SeleccionarProveedor } from "../components/SeleccionarProveedor";
+import { SeleccionarCliente } from "../components/SeleccionarProveedor";
 import { Calendar } from "primereact/calendar";
 import { DataMovimiento } from "../data/DataMovimiento";
 import UsarCrearMovimiento from "../hooks/UsarCrearMovimiento";
@@ -67,7 +67,7 @@ const ModalCrearMovimiento = ({ pasarSetData }) => {
             fecha: movimiento.fecha,
             modo: movimiento.modo?.nombre_modo,
             n_operacion: movimiento.n_operacion,
-            proveedor: movimiento.proveedor?.nombre_proveedor,
+            cliente: movimiento.cliente?.nombre_cliente,
             ingreso: movimiento.ingreso,
             egreso: movimiento.egreso,
             descripcion: movimiento.descripcion,
@@ -92,10 +92,10 @@ const ModalCrearMovimiento = ({ pasarSetData }) => {
     }
 
     //funciones para eventoss
-    const handleProveedorChange = (e) => {
+    const handleClienteChange = (e) => {
         setMovimiento({
             ...movimiento,
-            proveedor_id: e.id
+            cliente_id: e.id
         });
     };
     const handleMonedaChange = (e) => {
@@ -167,7 +167,7 @@ const ModalCrearMovimiento = ({ pasarSetData }) => {
                                 <InputText id="n_operacion" name='n_operacion' value={movimiento.n_operacion} onChange={handleInputChange} type="text" className="w-full" />
                             </div>
                             <div style={{ width: "100%" }}>
-                                <SeleccionarProveedor pasarSetProveedor={handleProveedorChange} />
+                                <SeleccionarCliente pasarSetCliente={handleClienteChange} />
 
                             </div>
                         </div>

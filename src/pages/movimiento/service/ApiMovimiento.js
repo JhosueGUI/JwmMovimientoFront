@@ -61,12 +61,12 @@ export const getMonedaMovimiento = async () => {
         throw error;
     }
 }
-export const getProveedorMovimiento = async () => {
+export const getClienteMovimiento = async () => {
     try {
-        const response = await ApiCliente.get('/proveedor/get');
+        const response = await ApiCliente.get('/cliente/get');
         return response.data.data;
     } catch (error) {
-        console.error('Error al obtener Proveedor:', error);
+        console.error('Error al obtener Cliente:', error);
         throw error;
     }
 }

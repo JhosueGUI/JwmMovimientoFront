@@ -14,7 +14,7 @@ export const DataMovimiento={
     n_retencion: '',
     fecha_retencion: '',
     modo_id: '',
-    proveedor_id: '',
+    cliente_id: '',
     sub_categoria_id: '',
     empresa_id: '',
     estado_id: '',

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { getProveedorMovimiento } from "../service/ApiMovimiento";
+import { getClienteMovimiento } from "../service/ApiMovimiento";
 
-const UsarGetProveedor = () => {
+const UsarGetCliente = () => {
     const [data, setData] = useState([]);
     useEffect(() => {
         const FetchProveedor = async () => {
             try {
-                const respuestaGet = await getProveedorMovimiento();
+                const respuestaGet = await getClienteMovimiento();
                 setData(respuestaGet);
             } catch (error) {
                 console.error('Error al obtener proveedor:', error);
@@ -16,4 +16,4 @@ const UsarGetProveedor = () => {
     }, [])
     return { data };
 }
-export default UsarGetProveedor;
+export default UsarGetCliente;
