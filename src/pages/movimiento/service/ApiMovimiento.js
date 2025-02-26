@@ -81,19 +81,37 @@ export const getCategoriaMovimiento = async () => {
 }
 export const crearMovimiento = async (data) => {
     try {
-        const response = await ApiCliente.post('/movimiento/create',data)
+        const response = await ApiCliente.post('/movimiento/create', data)
         return response.data.resp;
     } catch (error) {
         console.error('Error al crear movimiento:', error);
         throw error;
     }
 }
-export const crearTrazabilidad = async (data,id) => {
-    try{
-        const response = await ApiCliente.post(`/movimiento/trazabilidad/${id}`,data)
+export const crearTrazabilidad = async (data, id) => {
+    try {
+        const response = await ApiCliente.post(`/movimiento/trazabilidad/${id}`, data)
         return response.data.resp;
-    }catch (error) {
+    } catch (error) {
         console.error('Error al crear trazabilidad:', error);
+        throw error;
+    }
+}
+export const getPersonaFinanza = async () => {
+    try {
+        const response = await ApiCliente.get('/persona_finanza/get')
+        return response.data.data;
+    } catch (error) {
+        console.error('Error al obtener Persona :', error);
+        throw error;
+    }
+}
+export const getProveedorFinanza = async () => {
+    try {
+        const response = await ApiCliente.get('/proveedor_finanza/get')
+        return response.data.data;
+    } catch (error) {
+        console.error('Error al obtener Proveedor :', error);
         throw error;
     }
 }

@@ -1,13 +1,13 @@
 import { FloatLabel } from "primereact/floatlabel";
 import { Dropdown } from "primereact/dropdown";
 import { useEffect, useState } from "react";
-import UsarGetProveedorFinanza from "../hooks/UsarGetProveedorFinanza";
+import UsarGetCliente from "../hooks/UsarGetCliente";
 
-export const SeleccionarProveedor = ({ pasarMovimientoSeleccionado,pasarSetProveedor }) => {
+export const SeleccionarCliente = ({ pasarMovimientoSeleccionado,pasarSetCliente }) => {
     // Hook personalizado para obtener estados
-    const { data } = UsarGetProveedorFinanza();
+    const { data } = UsarGetCliente();
     // Estado para la selección del Dropdown
-    const [proveedorSeleccionado, setProveedorSeleccionado] = useState(null);
+    const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
     //si pasarMovimientoSeleccionado es true, se setea el estado
     // useEffect(() => {
     //     if (pasarMovimientoSeleccionado && data) {
@@ -15,23 +15,23 @@ export const SeleccionarProveedor = ({ pasarMovimientoSeleccionado,pasarSetProve
     //         setEstadoSeleccionado(estadoEncontrado || null);
     //     }
     // }, [pasarMovimientoSeleccionado, data]);
-    const ManejoDeProveedor=(e)=>{
+    const ManejoDeCliente=(e)=>{
         const seleccion=e.value;
-        setProveedorSeleccionado(seleccion);
-        pasarSetProveedor(seleccion);
+        setClienteSeleccionado(seleccion);
+        pasarSetCliente(seleccion);
     }
     return (
         <>
             <div  style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                <label htmlFor="ssn" style={{color:'#344054'}}>Proveedor</label>
+                <label htmlFor="ssn" style={{color:'#344054'}}>Cliente</label>
                 <Dropdown
-                    id="proveedor_finanza_id"
-                    value={proveedorSeleccionado}
-                    onChange={ManejoDeProveedor}
+                    id="cliente_id"
+                    value={clienteSeleccionado}
+                    onChange={ManejoDeCliente}
                     options={data}
-                    optionLabel="nombre_proveedor"
+                    optionLabel="nombre_cliente"
                     showClear
-                    placeholder="Seleccione un Proveedor"
+                    placeholder="Seleccione un Cliente"
                     style={{ width: "100%" }}
                 />
             </div>

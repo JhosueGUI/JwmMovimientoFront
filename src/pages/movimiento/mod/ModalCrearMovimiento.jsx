@@ -10,11 +10,13 @@ import { InputNumber } from "primereact/inputnumber";
 import { SeleccionarEmpresa } from "../components/SeleccionarEmpresa";
 import { SeleccionarModo } from "../components/SeleccionarModo";
 import { SeleccionarMoneda } from "../components/SeleccionarMoneda";
-import { SeleccionarCliente } from "../components/SeleccionarProveedor";
+import { SeleccionarCliente } from "../components/SeleccionarCliente";
 import { Calendar } from "primereact/calendar";
 import { DataMovimiento } from "../data/DataMovimiento";
 import UsarCrearMovimiento from "../hooks/UsarCrearMovimiento";
 import { getMovimientos } from "../service/ApiMovimiento";
+import { SeleccionarPersona } from "../components/SeleccionarPersona";
+import { SeleccionarProveedor } from "../components/SeleccionarProveedor";
 
 const ModalCrearMovimiento = ({ pasarSetData }) => {
 
@@ -116,6 +118,18 @@ const ModalCrearMovimiento = ({ pasarSetData }) => {
             modo_id: e.id
         })
     }
+    const handlePersonalChange = (e) => {
+        setMovimiento({
+            ...movimiento,
+            persona_finanza_id: e.id
+        })
+    }
+    const handleProveedorChange = (e) => {
+        setMovimiento({
+            ...movimiento,
+            proveedor_finanza_id: e.id
+        })
+    }
 
     const footer = (
         <div className="botonesFooter" style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
@@ -166,10 +180,21 @@ const ModalCrearMovimiento = ({ pasarSetData }) => {
                                 <label htmlFor="n_operacion" style={{ color: '#344054' }}>Número de Operación</label>
                                 <InputText id="n_operacion" name='n_operacion' value={movimiento.n_operacion} onChange={handleInputChange} type="text" className="w-full" />
                             </div>
-                            <div style={{ width: "100%" }}>
-                                <SeleccionarCliente pasarSetCliente={handleClienteChange} />
-
-                            </div>
+                            {activeIndex === 0 && (
+                                <div style={{ width: "100%" }}>
+                                    <SeleccionarCliente pasarSetCliente={handleClienteChange} />
+                                </div>
+                            )}
+                            {activeIndex === 1 && (
+                                <>
+                                    <div style={{ width: "100%" }}>
+                                        <SeleccionarPersona pasarSetPersonal={handlePersonalChange} />
+                                    </div>
+                                    <div style={{ width: "100%" }}>
+                                        <SeleccionarProveedor pasarSetProveedor={handleProveedorChange} />
+                                    </div>
+                                </>
+                            )}
                         </div>
                         <div className="3" style={{ display: "flex", gap: "20px" }}>
                             <div style={{ width: "100%" }}>

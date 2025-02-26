@@ -1,13 +1,13 @@
 import { FloatLabel } from "primereact/floatlabel";
 import { Dropdown } from "primereact/dropdown";
 import { useEffect, useState } from "react";
-import UsarGetProveedorFinanza from "../hooks/UsarGetProveedorFinanza";
+import UsarGetPersonaFinanza from "../hooks/UsarGetPersonaFinanza";
 
-export const SeleccionarProveedor = ({ pasarMovimientoSeleccionado,pasarSetProveedor }) => {
+export const SeleccionarPersona = ({ pasarMovimientoSeleccionado,pasarSetPersonal }) => {
     // Hook personalizado para obtener estados
-    const { data } = UsarGetProveedorFinanza();
+    const { data } = UsarGetPersonaFinanza();
     // Estado para la selección del Dropdown
-    const [proveedorSeleccionado, setProveedorSeleccionado] = useState(null);
+    const [personalSeleccionado, setPersonalSeleccionado] = useState(null);
     //si pasarMovimientoSeleccionado es true, se setea el estado
     // useEffect(() => {
     //     if (pasarMovimientoSeleccionado && data) {
@@ -15,23 +15,23 @@ export const SeleccionarProveedor = ({ pasarMovimientoSeleccionado,pasarSetProve
     //         setEstadoSeleccionado(estadoEncontrado || null);
     //     }
     // }, [pasarMovimientoSeleccionado, data]);
-    const ManejoDeProveedor=(e)=>{
+    const ManejoDePersona=(e)=>{
         const seleccion=e.value;
-        setProveedorSeleccionado(seleccion);
-        pasarSetProveedor(seleccion);
+        setPersonalSeleccionado(seleccion);
+        pasarSetPersonal(seleccion);
     }
     return (
         <>
             <div  style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                <label htmlFor="ssn" style={{color:'#344054'}}>Proveedor</label>
+                <label htmlFor="ssn" style={{color:'#344054'}}>Persona</label>
                 <Dropdown
-                    id="proveedor_finanza_id"
-                    value={proveedorSeleccionado}
-                    onChange={ManejoDeProveedor}
+                    id="persona_finanza_id"
+                    value={personalSeleccionado}
+                    onChange={ManejoDePersona}
                     options={data}
-                    optionLabel="nombre_proveedor"
+                    optionLabel="nombre_persona"
                     showClear
-                    placeholder="Seleccione un Proveedor"
+                    placeholder="Seleccione una Persona"
                     style={{ width: "100%" }}
                 />
             </div>
