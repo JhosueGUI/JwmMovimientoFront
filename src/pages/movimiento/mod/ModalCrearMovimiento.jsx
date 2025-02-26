@@ -89,7 +89,6 @@ const ModalCrearMovimiento = ({ pasarSetData }) => {
             fecha_retencion: movimiento.fecha_retencion,
         }));
         pasarSetData(adaptarRespuesta);
-
         CerrarModal();
     }
 
