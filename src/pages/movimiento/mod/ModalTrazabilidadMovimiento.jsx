@@ -7,8 +7,12 @@ import { DataMovimiento } from "../data/DataMovimiento";
 import { SeleccionarEstado } from "../components/SeleccionarEstado";
 import { SeleccionarRendicion } from "../components/SeleccionarRendicion";
 import { SeleccionarCategoria } from "../components/SeleccionarCategoria";
+import UsarCrearTrazabilidad from "../hooks/UsarCrearTrazabilidad";
 
 const ModalTrazabilidadMovimiento = ({ pasarAbrirModal, pasarCerrarModal, pasarMovimientoSeleccionado }) => {
+    //hooks
+    const { CrearTrazabilidad } = UsarCrearTrazabilidad();
+
     //estado para la data
     const [dataMovimiento, setDataMovimiento] = useState(DataMovimiento)
 
@@ -49,12 +53,14 @@ const ModalTrazabilidadMovimiento = ({ pasarAbrirModal, pasarCerrarModal, pasarM
             ...prevState,
             sub_categoria_id: subCategoriaId,
         }));
-        console.log('subCategoriaId:', subCategoriaId);
     };
-    
+
 
     const crear = async () => {
-        console.log('dataMovimiento:', dataMovimiento);
+        const respuesta = await CrearTrazabilidad(dataMovimiento, pasarMovimientoSeleccionado.id);
+        pasarCerrarModal();
+        console.log('dataMovimiento:', respuesta);
+
     }
 
     const footer = (
@@ -95,7 +101,7 @@ const ModalTrazabilidadMovimiento = ({ pasarAbrirModal, pasarCerrarModal, pasarM
                                 <InputText value={dataMovimiento.sub_destino_placa || ""} id="sub_destino_placa" name='sub_destino_placa' type="text" className="w-full" onChange={(e) => setDataMovimiento({ ...dataMovimiento, sub_destino_placa: e.target.value })} />
                             </div>
                         </div>
-                        <SeleccionarCategoria pasarSetSubCategoria={handleSubCategoria}/>
+                        <SeleccionarCategoria pasarSetSubCategoria={handleSubCategoria} />
                         <div className="1" style={{ display: "flex", gap: "20px" }}>
                             <div className="1 1" style={{ width: "100%" }}>
                                 <SeleccionarEstado pasarMovimientoSeleccionado={pasarMovimientoSeleccionado} pasarSetEstado={handleEstado} />

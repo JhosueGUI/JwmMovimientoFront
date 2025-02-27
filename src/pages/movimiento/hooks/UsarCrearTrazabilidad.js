@@ -1,16 +1,14 @@
-import { useState } from "react";
 import { crearTrazabilidad } from "../service/ApiMovimiento";
 
-const UsarCrearTrazabilidad = (data, id) => {
-    const [resp, setResp] = useState([]);
-    const CrearTrazabilidad = async () => {
+const UsarCrearTrazabilidad = () => {
+    const CrearTrazabilidad = async (data, id) => {
         try {
             const response = await crearTrazabilidad(data, id);
-            setResp(response);
+            return response;
         } catch (error) {
             console.error('Error al crear trazabilidad:', error);
         }
     }
-    return { CrearTrazabilidad, resp };
+    return { CrearTrazabilidad };
 }
 export default UsarCrearTrazabilidad;
