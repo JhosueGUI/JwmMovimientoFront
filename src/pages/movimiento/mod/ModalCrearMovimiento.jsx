@@ -75,6 +75,7 @@ const ModalCrearMovimiento = ({ pasarSetData }) => {
             descripcion: movimiento.descripcion,
             solicitante: movimiento.solicitante,
             sub_destino_placa: movimiento.sub_destino_placa,
+            sub_categoria_id: movimiento.sub_categoria?.id,
             categoria: movimiento.sub_categoria?.categoria?.nombre_categoria,
             sub_categoria: movimiento.sub_categoria?.nombre_sub_categoria,
             estado_id: movimiento.estado?.id,
