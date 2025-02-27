@@ -1,10 +1,15 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
+  plugins: [react()],
+  preview: {
+    host: '0.0.0.0',
+    port: process.env.PORT || 8080,
+    allowedHosts: ['.railway.app'], // Permite todos los subdominios de Railway
+  },
   server: {
-    host: '0.0.0.0', // Permite conexiones externas
-    port: process.env.PORT || 8080, // Usa el puerto asignado por Railway
+    host: '0.0.0.0',
+    port: process.env.PORT || 8080
   }
 });
