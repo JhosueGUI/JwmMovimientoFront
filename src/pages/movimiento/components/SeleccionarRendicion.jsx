@@ -5,7 +5,6 @@ import UsarGetRendicion from "../hooks/UsarGetRendicion";
 export const SeleccionarRendicion = ({ pasarMovimientoSeleccionado }) => {
     // Hook personalizado para obtener estados
     const { data } = UsarGetRendicion();
-    console.log('d',pasarMovimientoSeleccionado);
     // Estado para la selección del Dropdown
     const [rendicionSeleccionado, setRendicionSeleccionado] = useState(null);
     

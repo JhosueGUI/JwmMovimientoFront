@@ -32,6 +32,14 @@ const ModalTrazabilidadMovimiento = ({ pasarAbrirModal, pasarCerrarModal, pasarM
         }
     }, [pasarMovimientoSeleccionado])
 
+    const handleEstado = (estadoId) => {
+        setDataMovimiento(prevState => ({
+            ...prevState,
+            estado_id: estadoId,
+        }));
+    };
+    
+
     const crear = async () => {
         console.log('dataMovimiento:', dataMovimiento);
     }
@@ -67,17 +75,17 @@ const ModalTrazabilidadMovimiento = ({ pasarAbrirModal, pasarCerrarModal, pasarM
                         <div style={{ display: "flex", gap: "20px" }}>
                             <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
                                 <label htmlFor="solicitante" style={{ color: '#344054' }}>Solicitante</label>
-                                <InputText value={dataMovimiento.solicitante || ""} id="solicitante" name='solicitante' type="text" className="w-full" />
+                                <InputText value={dataMovimiento.solicitante || ""} id="solicitante" name='solicitante' type="text" className="w-full" onChange={(e) => setDataMovimiento({ ...dataMovimiento, solicitante: e.target.value })} />
                             </div>
                             <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
                                 <label htmlFor="sub_destino_placa" style={{ color: '#344054' }}>Sub destino placa</label>
-                                <InputText value={dataMovimiento.sub_destino_placa || ""} id="sub_destino_placa" name='sub_destino_placa' type="text" className="w-full" />
+                                <InputText value={dataMovimiento.sub_destino_placa || ""} id="sub_destino_placa" name='sub_destino_placa' type="text" className="w-full" onChange={(e) => setDataMovimiento({ ...dataMovimiento, sub_destino_placa: e.target.value })} />
                             </div>
                         </div>
                         <SeleccionarCategoria />
                         <div className="1" style={{ display: "flex", gap: "20px" }}>
                             <div className="1 1" style={{ width: "100%" }}>
-                                <SeleccionarEstado pasarMovimientoSeleccionado={pasarMovimientoSeleccionado} />
+                                <SeleccionarEstado pasarMovimientoSeleccionado={pasarMovimientoSeleccionado} pasarSetEstado={handleEstado} />
 
                             </div>
                             <div className="1 2" style={{ width: "100%" }}>
@@ -87,30 +95,30 @@ const ModalTrazabilidadMovimiento = ({ pasarAbrirModal, pasarCerrarModal, pasarM
                         <div className="2" style={{ display: "flex", gap: "20px", width: "100%" }}>
                             <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
                                 <label htmlFor="serie" style={{ color: '#344054' }}>Serie</label>
-                                <InputText id="serie" name='serie' type="text" className="w-full" value={dataMovimiento.serie || ""} />
+                                <InputText id="serie" name='serie' type="text" className="w-full" value={dataMovimiento.serie || ""} onChange={(e) => setDataMovimiento({ ...dataMovimiento, serie: e.target.value })} />
                             </div>
                             <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
                                 <label htmlFor="n_factura" style={{ color: '#344054' }}>N° Factura</label>
-                                <InputText id="n_factura" name='n_factura' type="text" className="w-full" value={dataMovimiento.n_factura || ""} />
+                                <InputText id="n_factura" name='n_factura' type="text" className="w-full" value={dataMovimiento.n_factura || ""} onChange={(e) => setDataMovimiento({ ...dataMovimiento, n_factura: e.target.value })} />
                             </div>
                             <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
                                 <label htmlFor="fecha_factura" style={{ color: '#344054' }} >Fecha Factura</label>
-                                <InputText id="fecha_factura" name='fecha_factura' type="text" className="w-full" value={dataMovimiento.fecha_factura || ""} />
+                                <InputText id="fecha_factura" name='fecha_factura' type="text" className="w-full" value={dataMovimiento.fecha_factura || ""} onChange={(e) => setDataMovimiento({ ...dataMovimiento, fecha_factura: e.target.value })} />
                             </div>
                         </div>
                         <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
                             <label htmlFor="obs" style={{ color: '#344054' }}>OBS</label>
-                            <InputText id="obs" name='obs' type="text" className="w-full" value={dataMovimiento.obs || ""} />
+                            <InputText id="obs" name='obs' type="text" className="w-full" value={dataMovimiento.obs || ""} onChange={(e) => setDataMovimiento({ ...dataMovimiento, obs: e.target.value })} />
 
                         </div>
                         <div className="3" style={{ display: "flex", gap: "20px", width: "100%" }}>
                             <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
                                 <label htmlFor="n_retencion" style={{ color: '#344054' }}>N° Retención</label>
-                                <InputText id="n_retencion" name='n_retencion' type="text" className="w-full" value={dataMovimiento.n_retencion || ""} />
+                                <InputText id="n_retencion" name='n_retencion' type="text" className="w-full" value={dataMovimiento.n_retencion || ""} onChange={(e) => setDataMovimiento({ ...dataMovimiento, n_retencion: e.target.value })} />
                             </div>
                             <div style={{ display: "flex", flexDirection: "column", gap: "5px", width: "100%" }}>
                                 <label htmlFor="fecha_retencion" style={{ color: '#344054' }}>Fecha Retención</label>
-                                <InputText id="fecha_retencion" name='fecha_retencion' type="text" className="w-full" value={dataMovimiento.fecha_retencion || ""} />
+                                <InputText id="fecha_retencion" name='fecha_retencion' type="text" className="w-full" value={dataMovimiento.fecha_retencion || ""} onChange={(e) => setDataMovimiento({ ...dataMovimiento, fecha_retencion: e.target.value })} />
                             </div>
                         </div>
 
