@@ -12,7 +12,6 @@ export const SeleccionarCategoria = ({pasarSetSubCategoria}) => {
 
     useEffect(() => {
         if (categoriaSeleccionada) {
-            // Filtrar subcategorías basadas en la categoría seleccionada
             const categoria = data.find(cat => cat.id === categoriaSeleccionada);
             setSubcategorias(categoria ? categoria.subcategoria : []);
             setSubcategoriaSeleccionada(null); 
@@ -51,7 +50,7 @@ export const SeleccionarCategoria = ({pasarSetSubCategoria}) => {
                 <Dropdown
                     id="subcategoria_id"
                     value={subcategoriaSeleccionada}
-                    onChange={(e) => setSubcategoriaSeleccionada(e.value)}
+                    onChange={ManejoDeCategoria}
                     options={subcategorias}
                     optionLabel="nombre_sub_categoria"
                     optionValue="id"

@@ -44,6 +44,13 @@ const ModalTrazabilidadMovimiento = ({ pasarAbrirModal, pasarCerrarModal, pasarM
             rendicion_id: rendicionId,
         }));
     };
+    const handleSubCategoria = (subCategoriaId) => {
+        setDataMovimiento(prevState => ({
+            ...prevState,
+            sub_categoria_id: subCategoriaId,
+        }));
+        console.log('subCategoriaId:', subCategoriaId);
+    };
     
 
     const crear = async () => {
@@ -88,7 +95,7 @@ const ModalTrazabilidadMovimiento = ({ pasarAbrirModal, pasarCerrarModal, pasarM
                                 <InputText value={dataMovimiento.sub_destino_placa || ""} id="sub_destino_placa" name='sub_destino_placa' type="text" className="w-full" onChange={(e) => setDataMovimiento({ ...dataMovimiento, sub_destino_placa: e.target.value })} />
                             </div>
                         </div>
-                        <SeleccionarCategoria />
+                        <SeleccionarCategoria pasarSetSubCategoria={handleSubCategoria}/>
                         <div className="1" style={{ display: "flex", gap: "20px" }}>
                             <div className="1 1" style={{ width: "100%" }}>
                                 <SeleccionarEstado pasarMovimientoSeleccionado={pasarMovimientoSeleccionado} pasarSetEstado={handleEstado} />
