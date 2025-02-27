@@ -38,6 +38,12 @@ const ModalTrazabilidadMovimiento = ({ pasarAbrirModal, pasarCerrarModal, pasarM
             estado_id: estadoId,
         }));
     };
+    const handleRendicion = (rendicionId) => {
+        setDataMovimiento(prevState => ({
+            ...prevState,
+            rendicion_id: rendicionId,
+        }));
+    };
     
 
     const crear = async () => {
@@ -89,7 +95,7 @@ const ModalTrazabilidadMovimiento = ({ pasarAbrirModal, pasarCerrarModal, pasarM
 
                             </div>
                             <div className="1 2" style={{ width: "100%" }}>
-                                <SeleccionarRendicion pasarMovimientoSeleccionado={pasarMovimientoSeleccionado} />
+                                <SeleccionarRendicion pasarMovimientoSeleccionado={pasarMovimientoSeleccionado} pasarSetRendicion={handleRendicion} />
                             </div>
                         </div>
                         <div className="2" style={{ display: "flex", gap: "20px", width: "100%" }}>
