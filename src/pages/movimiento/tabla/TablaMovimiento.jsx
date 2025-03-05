@@ -90,6 +90,7 @@ export function TablaMovimiento() {
                         severity="danger"
                         aria-label="Editar"
                         style={{ color: '#FF6767', backgroundColor: '#FFECEC', border: 'none' }}
+                        disabled
                     />
                 </div>
             </div>

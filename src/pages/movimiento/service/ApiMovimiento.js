@@ -70,6 +70,16 @@ export const getClienteMovimiento = async () => {
         throw error;
     }
 }
+export const crearClienteMovimiento=async(data)=>{
+    try {
+        const response = await ApiCliente.post('/cliente/create',data)
+        return response.data.resp;
+    }catch (error){
+        console.error('Error al crear cliente:',error);
+        throw error;
+    }
+}
+
 export const getCategoriaMovimiento = async () => {
     try {
         const response = await ApiCliente.get('/sub_categoria/get');

@@ -14,6 +14,6 @@ const UsarGetCliente = () => {
         }
         FetchProveedor();
     }, [])
-    return { data };
+    return { data, setData };
 }
 export default UsarGetCliente;
