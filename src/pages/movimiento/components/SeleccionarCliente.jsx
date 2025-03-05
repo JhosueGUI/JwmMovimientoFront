@@ -6,15 +6,16 @@ import UsarGetCliente from "../hooks/UsarGetCliente";
 export const SeleccionarCliente = ({ pasarMovimientoSeleccionado,pasarSetCliente }) => {
     // Hook personalizado para obtener estados
     const { data } = UsarGetCliente();
+    console.log(data);
     // Estado para la selección del Dropdown
     const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
     //si pasarMovimientoSeleccionado es true, se setea el estado
-    // useEffect(() => {
-    //     if (pasarMovimientoSeleccionado && data) {
-    //         const estadoEncontrado = data.find(estado => estado.estado_id === pasarMovimientoSeleccionado.estado_id);
-    //         setEstadoSeleccionado(estadoEncontrado || null);
-    //     }
-    // }, [pasarMovimientoSeleccionado, data]);
+    useEffect(() => {
+        if (pasarMovimientoSeleccionado && data) {
+            const clienteSeleccionado = data.find(cliente => cliente.id === pasarMovimientoSeleccionado.estado_id);
+            setClienteSeleccionado(clienteSeleccionado || null);
+        }
+    }, [pasarMovimientoSeleccionado, data]);
     const ManejoDeCliente=(e)=>{
         const seleccion=e.value;
         setClienteSeleccionado(seleccion);
@@ -31,6 +32,8 @@ export const SeleccionarCliente = ({ pasarMovimientoSeleccionado,pasarSetCliente
                     options={data}
                     optionLabel="nombre_cliente"
                     showClear
+                    filter
+                    filterBy="nombre_cliente"
                     placeholder="Seleccione un Cliente"
                     style={{ width: "100%" }}
                 />

@@ -9,12 +9,12 @@ export const SeleccionarEmpresa = ({ pasarMovimientoSeleccionado,pasarSetEmpresa
     // Estado para la selección del Dropdown
     const [empresaSeleccionado, setEmpresaSeleccionado] = useState(null);
     //si pasarMovimientoSeleccionado es true, se setea el estado
-    // useEffect(() => {
-    //     if (pasarMovimientoSeleccionado && data) {
-    //         const estadoEncontrado = data.find(estado => estado.estado_id === pasarMovimientoSeleccionado.estado_id);
-    //         setEstadoSeleccionado(estadoEncontrado || null);
-    //     }
-    // }, [pasarMovimientoSeleccionado, data]);
+    useEffect(() => {
+        if (pasarMovimientoSeleccionado && data) {
+            const empresaEncontrado = data.find(empresa => empresa.id === pasarMovimientoSeleccionado.empresa_id);
+            setEmpresaSeleccionado(empresaEncontrado || null);
+        }
+    }, [pasarMovimientoSeleccionado, data]);
     const ManejoDeEmpresa=(e)=>{
         const seleccion=e.value;
         setEmpresaSeleccionado(seleccion);
@@ -31,6 +31,8 @@ export const SeleccionarEmpresa = ({ pasarMovimientoSeleccionado,pasarSetEmpresa
                     options={data}
                     optionLabel="nombre_empresa"
                     showClear
+                    filter
+                    filterBy="nombre_empresa"
                     placeholder="Seleccione una empresa"
                     style={{ width: "100%" }}
                 />

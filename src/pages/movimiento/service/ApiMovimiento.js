@@ -97,6 +97,15 @@ export const crearTrazabilidad = async (data, id) => {
         throw error;
     }
 }
+export const editarMovimiento = async (data, id) => {
+    try {
+        const response = await ApiCliente.post(`/movimiento/update/${id}`, data)
+        return response.data.resp;
+    } catch (error) {
+        console.error('Error al editar Proveedor:', error);
+        throw error;
+    }
+}
 export const getPersonaFinanza = async () => {
     try {
         const response = await ApiCliente.get('/persona_finanza/get')

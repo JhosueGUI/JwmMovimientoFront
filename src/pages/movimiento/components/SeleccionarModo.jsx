@@ -9,12 +9,12 @@ export const SeleccionarModo = ({ pasarMovimientoSeleccionado,pasarSetModo }) =>
     // Estado para la selección del Dropdown
     const [modoSeleccionado, setModoSeleccionado] = useState(null);
     //si pasarMovimientoSeleccionado es true, se setea el estado
-    // useEffect(() => {
-    //     if (pasarMovimientoSeleccionado && data) {
-    //         const estadoEncontrado = data.find(estado => estado.estado_id === pasarMovimientoSeleccionado.estado_id);
-    //         setEstadoSeleccionado(estadoEncontrado || null);
-    //     }
-    // }, [pasarMovimientoSeleccionado, data]);
+    useEffect(() => {
+        if (pasarMovimientoSeleccionado && data) {
+            const modoEncontrado = data.find(modo => modo.id === pasarMovimientoSeleccionado.modo_id);
+            setModoSeleccionado(modoEncontrado || null);
+        }
+    }, [pasarMovimientoSeleccionado, data]);
     const ManejoDeModo=(e)=>{
         const seleccion=e.value;
         setModoSeleccionado(seleccion);

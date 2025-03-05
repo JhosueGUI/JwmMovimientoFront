@@ -9,12 +9,12 @@ export const SeleccionarMoneda = ({ pasarMovimientoSeleccionado, pasarSetMoneda 
     // Estado para la selección del Dropdown
     const [monedaSeleccionado, setMonedaSeleccionado] = useState(null);
     //si pasarMovimientoSeleccionado es true, se setea el estado
-    // useEffect(() => {
-    //     if (pasarMovimientoSeleccionado && data) {
-    //         const estadoEncontrado = data.find(estado => estado.estado_id === pasarMovimientoSeleccionado.estado_id);
-    //         setEstadoSeleccionado(estadoEncontrado || null);
-    //     }
-    // }, [pasarMovimientoSeleccionado, data]);
+    useEffect(() => {
+        if (pasarMovimientoSeleccionado && data) {
+            const monedaEncontrado = data.find(moneda => moneda.id === pasarMovimientoSeleccionado.moneda_id);
+            setMonedaSeleccionado(monedaEncontrado || null);
+        }
+    }, [pasarMovimientoSeleccionado, data]);
     const ManejoDeMoneda = (e) => {
         const seleccion = e.value;
         setMonedaSeleccionado(seleccion);

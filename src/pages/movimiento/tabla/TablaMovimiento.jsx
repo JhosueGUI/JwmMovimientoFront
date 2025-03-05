@@ -9,6 +9,7 @@ import { Button } from "primereact/button";
 import TrazabilidadMovimiento from "../mod/ModalTrazabilidadMovimiento";
 import ModalTrazabilidadMovimiento from "../mod/ModalTrazabilidadMovimiento";
 import ModalCrearMovimiento from "../mod/ModalCrearMovimiento";
+import ModalEditarMovimiento from "../mod/ModalEditarMovimiento";
 
 export function TablaMovimiento() {
     // Obtener datos
@@ -45,6 +46,16 @@ export function TablaMovimiento() {
     const cerrarModal = () => {
         setAbrirModalTrazabilidad(false);
     }
+    // Abrir Modal EditarMovimiento
+    const [abrirModalEditarMovimiento, setAbrirModalEditarMovimiento] = useState(false);
+
+    const AbrirModalEditar = (id) => {
+        setAbrirModalEditarMovimiento(true);
+        setMovimientoSeleccionado(id);
+    }
+    const CerrarModalEditar = () => {
+        setAbrirModalEditarMovimiento(false);
+    }
     // Columnas Adicionales
     const ColumnasAdicionales = (rowData) => {
         return (
@@ -56,6 +67,29 @@ export function TablaMovimiento() {
                         severity="success"
                         aria-label="Editar"
                         style={{ color: '#248D63', backgroundColor: '#BFF1DF', border: 'none' }}
+                    />
+                </div>
+            </div>
+        );
+    };
+    // Columnas Adicionales2
+    const ColumnAcciones = (rowData) => {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '5px' }}>
+                <div className="editar" style={{display: 'flex', gap: '5px'}}>
+                    <Button
+                        icon="pi pi-pencil"
+                        onClick={() => AbrirModalEditar(rowData)}
+                        severity="success"
+                        aria-label="Editar"
+                        style={{ color: '#248D63', backgroundColor: '#BFF1DF', border: 'none' }}
+                    />
+                    <Button
+                        icon="pi pi-trash"
+                        onClick={() => AbrirModalEditar(rowData)}
+                        severity="danger"
+                        aria-label="Editar"
+                        style={{ color: '#FF6767', backgroundColor: '#FFECEC', border: 'none' }}
                     />
                 </div>
             </div>
@@ -109,14 +143,19 @@ export function TablaMovimiento() {
                         ))}
                         <Column
                             header="Trazabilidad"
-                            
                             body={ColumnasAdicionales}
+                            style={{ textAlign: 'center', width: '5rem', position: 'sticky', right: 0, background: 'white' }}
+                        />
+                        <Column
+                            header="Acciones"
+                            body={ColumnAcciones}
                             style={{ textAlign: 'center', width: '5rem', position: 'sticky', right: 0, background: 'white' }}
                         />
                     </DataTable>
 
             </div>
             <ModalTrazabilidadMovimiento pasarAbrirModal={abrirModalTrazabilidad} pasarCerrarModal={cerrarModal} pasarMovimientoSeleccionado={movimientoSeleccionado} />
+            <ModalEditarMovimiento pasarAbrirModal={abrirModalEditarMovimiento} pasarCerrarModal={CerrarModalEditar} pasarMovimientoSeleccionado={movimientoSeleccionado}/>
         </>
     );
 

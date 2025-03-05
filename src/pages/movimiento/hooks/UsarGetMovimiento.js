@@ -10,12 +10,16 @@ const UsarGetMovimiento = () => {
         const FetchMovimiento = async () => {
             try {
                 const respuestaGet = await getMovimientos();
+    console.log('data:', respuestaGet);
+
                 const adaptarRespuesta = respuestaGet.map(movimiento => ({
                     id: movimiento.id,
                     fecha: movimiento.fecha,
                     modo: movimiento.modo?.nombre_modo,
+                    modo_id: movimiento.modo?.id,
                     n_operacion: movimiento.n_operacion,
                     cliente: movimiento.cliente?.nombre_cliente,
+                    cliente_id: movimiento.cliente?.id,
                     ingreso: movimiento.ingreso,
                     egreso: movimiento.egreso,
                     descripcion: movimiento.descripcion,
@@ -34,6 +38,10 @@ const UsarGetMovimiento = () => {
                     obs: movimiento.obs,
                     n_retencion: movimiento.n_retencion,
                     fecha_retencion: movimiento.fecha_retencion,
+                    empresa_id: movimiento.empresa?.id,
+                    moneda_id: movimiento.moneda?.id,
+                    persona_finanza_id: movimiento.persona_finanza?.id,
+                    proveedor_finanza_id: movimiento.proveedor_finanza?.id,
                 }));
                 setData(adaptarRespuesta);
             } catch (error) {

@@ -10,12 +10,12 @@ export const SeleccionarProveedor = ({ pasarMovimientoSeleccionado, pasarSetProv
     // Estado para la selección del Dropdown
     const [proveedorSeleccionado, setProveedorSeleccionado] = useState(null);
     //si pasarMovimientoSeleccionado es true, se setea el estado
-    // useEffect(() => {
-    //     if (pasarMovimientoSeleccionado && data) {
-    //         const estadoEncontrado = data.find(estado => estado.estado_id === pasarMovimientoSeleccionado.estado_id);
-    //         setEstadoSeleccionado(estadoEncontrado || null);
-    //     }
-    // }, [pasarMovimientoSeleccionado, data]);
+    useEffect(() => {
+        if (pasarMovimientoSeleccionado && data) {
+            const proveedorEncontrado = data.find(proveedor => proveedor.id === pasarMovimientoSeleccionado.proveedor_finanza_id);
+            setProveedorSeleccionado(proveedorEncontrado || null);
+        }
+    }, [pasarMovimientoSeleccionado, data]);
     const ManejoDeProveedor = (e) => {
         const seleccion = e.value;
         setProveedorSeleccionado(seleccion);
@@ -33,6 +33,8 @@ export const SeleccionarProveedor = ({ pasarMovimientoSeleccionado, pasarSetProv
                         options={data}
                         optionLabel="nombre_proveedor"
                         showClear
+                        filter
+                        filterBy="nombre_proveedor"
                         placeholder="Seleccione un Proveedor"
                         style={{ width: "100%" }}
                     />

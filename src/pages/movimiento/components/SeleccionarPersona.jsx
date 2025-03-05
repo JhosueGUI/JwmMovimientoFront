@@ -11,12 +11,12 @@ export const SeleccionarPersona = ({ pasarMovimientoSeleccionado, pasarSetPerson
     // Estado para la selección del Dropdown
     const [personalSeleccionado, setPersonalSeleccionado] = useState(null);
     //si pasarMovimientoSeleccionado es true, se setea el estado
-    // useEffect(() => {
-    //     if (pasarMovimientoSeleccionado && data) {
-    //         const estadoEncontrado = data.find(estado => estado.estado_id === pasarMovimientoSeleccionado.estado_id);
-    //         setEstadoSeleccionado(estadoEncontrado || null);
-    //     }
-    // }, [pasarMovimientoSeleccionado, data]);
+    useEffect(() => {
+        if (pasarMovimientoSeleccionado && data) {
+            const personaEncontrado = data.find(persona => persona.id === pasarMovimientoSeleccionado.persona_finanza_id);
+            setPersonalSeleccionado(personaEncontrado || null);
+        }
+    }, [pasarMovimientoSeleccionado, data]);
     const ManejoDePersona = (e) => {
         const seleccion = e.value;
         setPersonalSeleccionado(seleccion);
@@ -34,6 +34,8 @@ export const SeleccionarPersona = ({ pasarMovimientoSeleccionado, pasarSetPerson
                         options={data}
                         optionLabel="nombre_persona"
                         showClear
+                        filter
+                        filterBy="nombre_persona"
                         placeholder="Seleccione una Persona"
                         style={{ width: "100%" }}
                     />
