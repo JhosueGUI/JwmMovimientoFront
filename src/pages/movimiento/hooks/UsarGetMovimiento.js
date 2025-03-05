@@ -10,7 +10,6 @@ const UsarGetMovimiento = () => {
         const FetchMovimiento = async () => {
             try {
                 const respuestaGet = await getMovimientos();
-    console.log('data:', respuestaGet);
 
                 const adaptarRespuesta = respuestaGet.map(movimiento => ({
                     id: movimiento.id,

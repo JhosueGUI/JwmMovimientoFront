@@ -6,7 +6,6 @@ import UsarGetCliente from "../hooks/UsarGetCliente";
 export const SeleccionarCliente = ({ pasarMovimientoSeleccionado,pasarSetCliente }) => {
     // Hook personalizado para obtener estados
     const { data } = UsarGetCliente();
-    console.log(data);
     // Estado para la selección del Dropdown
     const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
     //si pasarMovimientoSeleccionado es true, se setea el estado

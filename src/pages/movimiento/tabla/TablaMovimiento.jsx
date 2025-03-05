@@ -155,7 +155,7 @@ export function TablaMovimiento() {
 
             </div>
             <ModalTrazabilidadMovimiento pasarAbrirModal={abrirModalTrazabilidad} pasarCerrarModal={cerrarModal} pasarMovimientoSeleccionado={movimientoSeleccionado} />
-            <ModalEditarMovimiento pasarAbrirModal={abrirModalEditarMovimiento} pasarCerrarModal={CerrarModalEditar} pasarMovimientoSeleccionado={movimientoSeleccionado}/>
+            <ModalEditarMovimiento pasarAbrirModal={abrirModalEditarMovimiento} pasarCerrarModal={CerrarModalEditar} pasarMovimientoSeleccionado={movimientoSeleccionado} pasarSetData={setData}/>
         </>
     );
 
